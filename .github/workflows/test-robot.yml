@@ -27,6 +27,7 @@ jobs:
       - name: test 2222222
         run: |
             echo "test 222222222"
+            rm aaaa.txt
             cd ..
             echo "test 222222222"
 

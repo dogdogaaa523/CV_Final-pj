@@ -185,3 +185,6 @@ if __name__ == "__main__":
                         f3.close()
                         best_acc = acc
             print("Training Finished, TotalEPOCH=%d" % EPOCH)
+            
+            
+            

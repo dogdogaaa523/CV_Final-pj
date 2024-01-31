@@ -1,0 +1,44 @@
+name: dingding robot
+
+on:
+  # push:
+  #   branches: 
+    # Use the default main branch, if the name of the main branch changed, you should change the name here.
+  #  - update-5e5a22
+  
+  # pull_request:
+  #   branches:
+  #   # Use the default main branch, if the name of the main branch changed, you should change the name here.
+  #   - update-5e5a22
+
+  workflow_run:
+    workflows: [robot test]
+    types: [completed]
+
+jobs:
+  no-build:     
+    runs-on: ubuntu-latest     
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}     
+    steps:       
+      - run: |
+          echo 'LLVM test passed, no need to build'
+          curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
+            -H 'Content-Type: application/json' \
+            -d '{"msgtype": "text","text": {"content":"我就是我, 是不一样的烟火 \n ci成功!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
+
+
+  build:
+    # The CMake configure and build commands are platform agnostic and should work equally
+    # well on Windows or Mac.  You can convert this to a matrix build if you need
+    # cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+
+    steps:
+    - run: |
+        echo 'LLVM test passed, no need to build fffffffffffff'
+        curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
+          -H 'Content-Type: application/json' \
+          -d '{"msgtype": "text","text": {"content":"我就是我, 是不一样的烟火 \n ci失败了，请检查@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'

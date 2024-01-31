@@ -1,0 +1,34 @@
+name: robot test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  push:
+    branches:
+      - main
+
+
+jobs:
+  robot:
+    # The CMake configure and build commands are platform agnostic and should work equally
+    # well on Windows or Mac.  You can convert this to a matrix build if you need
+    # cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: test 111111
+        run: echo "test 1111"
+
+      - name: test 2222222
+        run: |
+            echo "test 222222222"
+            cd ..
+            echo "test 222222222"
+
+      - name: test 3333333
+        run: echo "test 33333333"

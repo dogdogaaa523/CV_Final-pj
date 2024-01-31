@@ -163,3 +163,6 @@ for i, data in enumerate(trainloader,0):
     loss = loss_func(criterion,outputs)
     loss.backward()
     optimizer.step()
+    
+    
+    

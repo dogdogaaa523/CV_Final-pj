@@ -1,4 +1,4 @@
-name: robot test
+name: robot test merge pr
 
 on:
   pull_request:

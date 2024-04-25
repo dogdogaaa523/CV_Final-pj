@@ -35,7 +35,7 @@ jobs:
 
       - name: failure
         id: failure
-        run: cd llvm
+        run: cd ..
 
       - name: failure1
         id: failure1

@@ -21,7 +21,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }} && ${{ github.event.workflow_run.name == 'robot test'}}    
     steps:       
       - run: |
-          echo '${{ github.event.workflow_run.event.head_sha }}'
+          echo '${{ github.event.workflow_run.event.commit.sha }}'
           curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
             -H 'Content-Type: application/json' \
             -d '{"msgtype": "text","text": {"content":"我就是我, 是不一样的烟火 commit sha ${{ github.event.workflow_run.head_sha }}\n ci成功!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'

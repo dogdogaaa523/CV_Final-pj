@@ -24,7 +24,7 @@ jobs:
           echo 'LLVM test passed, no need to build'
           curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
             -H 'Content-Type: application/json' \
-            -d '{"msgtype": "text","text": {"content":"我就是我, 是不一样的烟火 \n ci成功!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
+            -d '{"msgtype": "text","text": {"content":"我就是我, 是不一样的烟火 commit sha ${{ github.sha }}\n ci成功!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
 
 
   build:
@@ -41,4 +41,4 @@ jobs:
         echo 'LLVM test passed, no need to build fffffffffffff'
         curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
           -H 'Content-Type: application/json' \
-          -d '{"msgtype": "text","text": {"content":"我就是我, 是不一样的烟火 \n ci失败了，请检查@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
+          -d '{"msgtype": "text","text": {"content":"我就是我, 是不一样的烟火 commit sha ${{ github.sha }}\n ci失败了，请检查@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'

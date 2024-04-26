@@ -21,9 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: test 111111
-        run: echo "test 1111"
-
       - name: test 2222222
         run: |
             echo "test 222222222"

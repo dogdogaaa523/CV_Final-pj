@@ -30,9 +30,6 @@ jobs:
             cd ..
             echo "test 222222222"
 
-      - name: test 3333333
-        run: echo "test 33333333"
-
       - name: failure
         id: failure
         run: cd ..

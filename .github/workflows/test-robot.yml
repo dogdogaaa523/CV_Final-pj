@@ -65,7 +65,7 @@ jobs:
       - name: test failure1 pr
         if: ${{ failure() && steps.failure1.conclusion == 'failure' && github.event_name == 'pull_request' }}
         run: |
-          echo '${{ github.event.after }}'
+          echo '${{ github.event.pull_request.html_url }}'
           curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
           -H 'Content-Type: application/json' \
-          -d '{"msgtype": "text","text": {"content":"测试新方法444 commit sha ${{ github.event.pull_request.head.sha }}\n !!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
+          -d '{"msgtype": "text","text": {"content":"测试新方法444 commit sha ${{ github.event.pull_request.url }}\n pr提交的人是${{ github.event.pull_request.user.name }} and ${{ github.event.pull_request.user.login }}!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'

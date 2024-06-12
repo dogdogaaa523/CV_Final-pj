@@ -26,14 +26,15 @@ jobs:
 
       - name: test 2222222
         run: |
-          cat ~/.bashrc
           wget -O miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-              && bash miniconda3.sh -b -p /root/miniconda \
+              && bash miniconda3.sh -b -p /usr/share/miniconda \
               && rm miniconda3.sh
-          export PATH=/root/miniconda/bin:${PATH}
+          export PATH=/usr/share/miniconda/bin:${PATH}
           conda init bash
+          source /home/runner/.bashrc
+          cat /home/runner/.bashrc
           conda create --name torch -y python=3.10
-          export PATH=/root/miniconda/envs/torch/bin:$PATH
+          export PATH=/usr/share/miniconda/envs/torch/bin:$PATH
           conda activate torch
 
       # - name: failure

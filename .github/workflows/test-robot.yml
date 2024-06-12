@@ -26,46 +26,52 @@ jobs:
 
       - name: test 2222222
         run: |
-            echo "test 222222222"
-            cd ..
-            echo "test 222222222"
+          cat ~/.bashrc
+          wget -O miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+              && bash miniconda3.sh -b -p /root/miniconda \
+              && rm miniconda3.sh
+          export PATH=/root/miniconda/bin:${PATH}
+          conda init bash
+          conda create --name torch -y python=3.10
+          export PATH=/root/miniconda/envs/torch/bin:$PATH
+          conda activate torch
 
-      - name: failure
-        id: failure
-        run: cd ..
+      # - name: failure
+      #   id: failure
+      #   run: cd ..
 
-      - name: failure1
-        id: failure1
-        run: cd llvm
+      # - name: failure1
+      #   id: failure1
+      #   run: cd llvm
 
-      - name: test failure push
-        if: ${{ failure() && steps.failure.conclusion == 'failure' && github.event_name == 'push' }}
-        run: |
-          echo '${{ github.event.after }}'
-          curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
-          -H 'Content-Type: application/json' \
-          -d '{"msgtype": "text","text": {"content":"测试新方法111 commit sha ${{ github.event.pull_request.head.sha }}\n !!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
+      # - name: test failure push
+      #   if: ${{ failure() && steps.failure.conclusion == 'failure' && github.event_name == 'push' }}
+      #   run: |
+      #     echo '${{ github.event.after }}'
+      #     curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
+      #     -H 'Content-Type: application/json' \
+      #     -d '{"msgtype": "text","text": {"content":"测试新方法111 commit sha ${{ github.event.pull_request.head.sha }}\n !!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
 
-      - name: test failure pr
-        if: ${{ failure() && steps.failure.conclusion == 'failure' && github.event_name == 'pull_request' }}
-        run: |
-          echo '${{ github.event.after }}'
-          curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
-          -H 'Content-Type: application/json' \
-          -d '{"msgtype": "text","text": {"content":"测试新方法222 commit sha ${{ github.event.pull_request.head.sha }}\n !!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
+      # - name: test failure pr
+      #   if: ${{ failure() && steps.failure.conclusion == 'failure' && github.event_name == 'pull_request' }}
+      #   run: |
+      #     echo '${{ github.event.after }}'
+      #     curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
+      #     -H 'Content-Type: application/json' \
+      #     -d '{"msgtype": "text","text": {"content":"测试新方法222 commit sha ${{ github.event.pull_request.head.sha }}\n !!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
 
-      - name: test failure1 push
-        if: ${{ failure() && steps.failure1.conclusion == 'failure' && github.event_name == 'push' }}
-        run: |
-          echo '${{ github.event.commits.url }}'
-          curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
-          -H 'Content-Type: application/json' \
-          -d '{"msgtype": "text","text": {"content":"测试新方法333 commit sha ${{ github.event.head_commit.url }}\n ${{ github.event.commits.url }} \n push的人的信息：${{ github.event.pusher.name }} and ${{ github.event.pusher.username }}!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
+      # - name: test failure1 push
+      #   if: ${{ failure() && steps.failure1.conclusion == 'failure' && github.event_name == 'push' }}
+      #   run: |
+      #     echo '${{ github.event.commits.url }}'
+      #     curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
+      #     -H 'Content-Type: application/json' \
+      #     -d '{"msgtype": "text","text": {"content":"测试新方法333 commit sha ${{ github.event.head_commit.url }}\n ${{ github.event.commits.url }} \n push的人的信息：${{ github.event.pusher.name }} and ${{ github.event.pusher.username }}!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
   
-      - name: test failure1 pr
-        if: ${{ failure() && steps.failure1.conclusion == 'failure' && github.event_name == 'pull_request' }}
-        run: |
-          echo '${{ github.event.pull_request.html_url }}'
-          curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
-          -H 'Content-Type: application/json' \
-          -d '{"msgtype": "text","text": {"content":"测试新方法444 commit sha ${{ github.event.pull_request.url }}\n pr提交的人是${{ github.event.pull_request.user.name }} and ${{ github.event.pull_request.user.login }}!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
+      # - name: test failure1 pr
+      #   if: ${{ failure() && steps.failure1.conclusion == 'failure' && github.event_name == 'pull_request' }}
+      #   run: |
+      #     echo '${{ github.event.pull_request.html_url }}'
+      #     curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
+      #     -H 'Content-Type: application/json' \
+      #     -d '{"msgtype": "text","text": {"content":"测试新方法444 commit sha ${{ github.event.pull_request.url }}\n pr提交的人是${{ github.event.pull_request.user.name }} and ${{ github.event.pull_request.user.login }}!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'

@@ -38,13 +38,19 @@ jobs:
           # conda init
           conda activate torch
 
-      # - name: failure
-      #   id: failure
-      #   run: cd ..
-
-      # - name: failure1
-      #   id: failure1
-      #   run: cd llvm
+      - name: test 2222222
+        run: |
+            # wget -O miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+            #     && bash miniconda3.sh -b -p /usr/share/miniconda \
+            #     && rm miniconda3.sh
+            # export PATH=/usr/share/miniconda/bin:$PATH
+            # conda init bash
+            # source /home/runner/.bashrc
+            cat /home/runner/.bashrc
+            conda create --name torch -y python=3.10
+            export PATH=/usr/share/miniconda/envs/torch/bin:$PATH
+            # conda init
+            conda activate torch
 
       # - name: test failure push
       #   if: ${{ failure() && steps.failure.conclusion == 'failure' && github.event_name == 'push' }}

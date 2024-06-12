@@ -35,7 +35,7 @@ jobs:
           # cat /home/runner/.bashrc
           conda create --name torch -y python=3.10
           # export PATH=/usr/share/miniconda/envs/torch/bin:$PATH
-          # conda init
+          conda init bash
           conda activate torch
 
       - name: test 2222222

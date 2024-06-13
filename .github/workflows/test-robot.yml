@@ -64,6 +64,8 @@ jobs:
           source ~/miniconda/etc/profile.d/conda.sh
           conda activate torch
           echo "Conda environment activated"
+          which python
+          python --version
           
       - name: Verify Environment
         run: |

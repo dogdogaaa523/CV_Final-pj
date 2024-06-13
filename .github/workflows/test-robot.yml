@@ -42,8 +42,8 @@ jobs:
       - name: Download Miniconda installer
         run: wget -O miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     
-      - name: Install Miniconda
-        run: bash miniconda3.sh -b -p /usr/share/miniconda
+      # - name: Install Miniconda
+      #   run: bash miniconda3.sh -b -p /usr/share/miniconda
   
       - name: Initialize Conda
         run: |

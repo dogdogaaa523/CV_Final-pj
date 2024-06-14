@@ -69,6 +69,9 @@ jobs:
           
       - name: Verify Environment
         run: |
+          id
+          sudo su
+          id
           which python
           python --version
 

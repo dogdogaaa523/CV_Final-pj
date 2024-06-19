@@ -9,6 +9,12 @@ on:
     branches:
       - main
 
+env: 
+  aaa: llvm
+  bbb: sim
+  ccc: aaa:aaa:aaa:$ccc
+  LD_LIBRARY_PATH: /usr/bin/python:/home/runner:/usr/local:$LD_LIBRARY_PATH
+
 
 jobs:
   robot:
@@ -22,7 +28,11 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: test 111111
-        run: echo "test 1111"
+        run: |
+          echo $aaa
+          echo $bbb
+          echo $ccc
+          echo $LD_LIBRARY_PATH
 
       # - name: test 2222222
       #   run: |
@@ -39,41 +49,41 @@ jobs:
       #     echo $PATH
       #     conda activate "${CONDA_ENV}"
 
-      - name: Download Miniconda installer
-        run: wget -O miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+      # - name: Download Miniconda installer
+      #   run: wget -O miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     
-      - name: Install Miniconda
-        run: bash miniconda3.sh -b -p ~/miniconda
+      # - name: Install Miniconda
+      #   run: bash miniconda3.sh -b -p ~/miniconda
   
-      - name: Initialize Conda
-        run: |
-          ~/miniconda/bin/conda init bash
-          ~/miniconda/bin/conda config --set auto_activate_base false
+      # - name: Initialize Conda
+      #   run: |
+      #     ~/miniconda/bin/conda init bash
+      #     ~/miniconda/bin/conda config --set auto_activate_base false
     
       # - name: Reload shell
       #   shell: bash -l {0}
       #   run: echo "Shell reloaded"
   
-      - name: Create Conda Environment
-        run: |
-          source ~/miniconda/etc/profile.d/conda.sh
-          conda create --name torch -y python=3.10
+      # - name: Create Conda Environment
+      #   run: |
+      #     source ~/miniconda/etc/profile.d/conda.sh
+      #     conda create --name torch -y python=3.10
   
-      - name: Activate Conda Environment
-        run: |
-          source ~/miniconda/etc/profile.d/conda.sh
-          conda activate torch
-          echo "Conda environment activated"
-          which python
-          python --version
+      # - name: Activate Conda Environment
+      #   run: |
+      #     source ~/miniconda/etc/profile.d/conda.sh
+      #     conda activate torch
+      #     echo "Conda environment activated"
+      #     which python
+      #     python --version
           
-      - name: Verify Environment
-        run: |
-          id
-          sudo su
-          id
-          which python
-          python --version
+      # - name: Verify Environment
+      #   run: |
+      #     id
+      #     sudo su
+      #     id
+      #     which python
+      #     python --version
 
       # - name: test failure push
       #   if: ${{ failure() && steps.failure.conclusion == 'failure' && github.event_name == 'push' }}

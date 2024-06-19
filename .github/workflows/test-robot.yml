@@ -9,11 +9,13 @@ on:
     branches:
       - main
 
+  schedule:
+    - cron: "30 18 * * *"
+
 env: 
   aaa: llvm
   bbb: sim
   ccc: aaa:aaa:aaa:$ccc
-  LD_LIBRARY_PATH: /usr/bin/python:/home/runner:/usr/local:$LD_LIBRARY_PATH
 
 
 jobs:
@@ -29,6 +31,8 @@ jobs:
 
       - name: test 111111
         run: |
+          echo $LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=/usr/local/chipltech/simulator/lib:/usr/local/chipltech/thunk/lib/:/usr/local/chipltech/synapse/lib/:$LD_LIBRARY_PATH
           echo $aaa
           echo $bbb
           echo $ccc

@@ -41,7 +41,7 @@ jobs:
       - name: test docker
         run: |
           docker images
-          docker run -it --rm ubuntu:22.04 bash -x -c "echo hello"
+          docker run -i --rm ubuntu:22.04 /usr/bin/bash -c "echo hello"
 
       # - name: test 2222222
       #   run: |

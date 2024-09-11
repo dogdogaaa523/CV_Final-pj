@@ -9,8 +9,8 @@ on:
     branches:
       - main
 
-  schedule:
-    - cron: "30 18 * * *"
+  # schedule:
+  #   - cron: "30 18 * * *"
 
 env: 
   aaa: llvm
@@ -37,6 +37,10 @@ jobs:
           echo $bbb
           echo $ccc
           echo $LD_LIBRARY_PATH
+
+      - name: test docker
+        run: |
+          docker images
 
       # - name: test 2222222
       #   run: |

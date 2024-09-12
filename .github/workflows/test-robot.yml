@@ -55,7 +55,7 @@ jobs:
           docker ps -a
           docker start test-docker
           docker ps -a
-          docker exec -i test-docker /usr/bin/bash -c "echo hello \
+          docker exec -id test-docker /usr/bin/bash -c "echo hello \
           && echo world \
           && pwd \
           && ls \

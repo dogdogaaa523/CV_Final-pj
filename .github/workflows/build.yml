@@ -2,10 +2,10 @@ name: dingding robot
 
 on:
   # push:
-  #   branches: 
+  #   branches:
     # Use the default main branch, if the name of the main branch changed, you should change the name here.
   #  - update-5e5a22
-  
+
   # pull_request:
   #   branches:
   #   # Use the default main branch, if the name of the main branch changed, you should change the name here.
@@ -16,10 +16,10 @@ on:
     types: [completed]
 
 jobs:
-  no-build:     
-    runs-on: ubuntu-latest     
-    if: ${{ github.event.workflow_run.conclusion == 'success' }} && ${{ github.event.workflow_run.name == 'robot test'}}    
-    steps:       
+  no-build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} && ${{ github.event.workflow_run.name == 'robot test'}}
+    steps:
       - run: |
           echo '${{ github.event.workflow_run.event.commit.sha }}'
           curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \

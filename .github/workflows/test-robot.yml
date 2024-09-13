@@ -12,7 +12,7 @@ on:
   # schedule:
   #   - cron: "30 18 * * *"
 
-env: 
+env:
   aaa: llvm
   bbb: sim
   ccc: aaa:aaa:aaa:$ccc
@@ -88,24 +88,24 @@ jobs:
 
       # - name: Download Miniconda installer
       #   run: wget -O miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    
+
       # - name: Install Miniconda
       #   run: bash miniconda3.sh -b -p ~/miniconda
-  
+
       # - name: Initialize Conda
       #   run: |
       #     ~/miniconda/bin/conda init bash
       #     ~/miniconda/bin/conda config --set auto_activate_base false
-    
+
       # - name: Reload shell
       #   shell: bash -l {0}
       #   run: echo "Shell reloaded"
-  
+
       # - name: Create Conda Environment
       #   run: |
       #     source ~/miniconda/etc/profile.d/conda.sh
       #     conda create --name torch -y python=3.10
-  
+
       # - name: Activate Conda Environment
       #   run: |
       #     source ~/miniconda/etc/profile.d/conda.sh
@@ -113,7 +113,7 @@ jobs:
       #     echo "Conda environment activated"
       #     which python
       #     python --version
-          
+
       # - name: Verify Environment
       #   run: |
       #     id
@@ -145,7 +145,7 @@ jobs:
       #     curl 'https://oapi.dingtalk.com/robot/send?access_token=5e773ecb4c8c643a3fe16df50dc260b3220bf425033503f5bc4cca01421f1ec9'  \
       #     -H 'Content-Type: application/json' \
       #     -d '{"msgtype": "text","text": {"content":"测试新方法333 commit sha ${{ github.event.head_commit.url }}\n ${{ github.event.commits.url }} \n push的人的信息：${{ github.event.pusher.name }} and ${{ github.event.pusher.username }}!!!!@13357605857"},"at":{"atMobiles":["13357605857"],"isAtAll":false}}'
-  
+
       # - name: test failure1 pr
       #   if: ${{ failure() && steps.failure1.conclusion == 'failure' && github.event_name == 'pull_request' }}
       #   run: |

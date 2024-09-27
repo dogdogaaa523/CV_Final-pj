@@ -45,7 +45,7 @@ jobs:
           echo "${{github.event.pull_request.body}}" >> $GITHUB_OUTPUT
 
       - name: export
-        if: ${{github.event.pull_request.body == ''}}
+        if: ${{github.event.pull_request.body != ''}}
         run: |
           echo ${{steps.get-dependency.outputs.LLVM_branch}}
 

@@ -40,7 +40,7 @@ jobs:
       
       - name: test comments
         run: |
-          echo ${{github.event.pull_request.comments}}
+          echo ${{github.event.pull_request.body}}
 
       # - name: test docker
       #   run: |

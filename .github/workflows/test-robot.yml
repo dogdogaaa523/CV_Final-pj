@@ -39,10 +39,14 @@ jobs:
           echo $LD_LIBRARY_PATH
       
       - name: test comments
+        id: get-dependency
         run: |
           echo ${{github.event.pull_request.body}}
-          touch dependency.txt
-          echo ${{github.event.pull_request.body}} > dependency.txt
+          echo "${{github.event.pull_request.body}}" >> $GITHUB_OUTPUT
+
+      - name: export
+        run: |
+          echo ${{steps.get-dependency.outputs}}
 
       # - name: test docker
       #   run: |

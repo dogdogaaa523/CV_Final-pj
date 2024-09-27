@@ -37,39 +37,55 @@ jobs:
           echo $bbb
           echo $ccc
           echo $LD_LIBRARY_PATH
-
-      - name: test docker
+      
+      - name: test comments
+        id: get-dependency
         run: |
-          docker images
-          docker run -i \
-            --name test-docker \
-            ubuntu:22.04 \
-            /usr/bin/bash 
-          docker start test-docker
-          docker ps -a
-          docker exec -i test-docker /usr/bin/bash -c "echo hello \
-          && echo world \
-          && pwd \
-          && ls \
-          && cd home \
-          && pwd \
-          && ls"
-          docker ps -a
+          echo "${{github.event.pull_request.body}}"
+          echo "${{github.event.pull_request.body}}" >> $GITHUB_OUTPUT
 
-      - name: test docker exist
+      - name: export
+        if: ${{github.event.pull_request.body != ''}}
         run: |
-          docker ps -a
-          docker exec -i test-docker /usr/bin/bash -c "echo hello \
-          && echo hello \
-          && pwd \
-          && ls \
-          && cd usr \
-          && pwd \
-          && ls"
-          docker ps -a
-          docker stop test-docker
-          docker rm test-docker
-          docker ps -a
+          if [ -n "${{steps.get-dependency.outputs.LLVM_branch}}" ]; then
+            echo "has llvm"
+          fi
+          if [ -n "${{steps.get-dependency.outputs.DLCsim_branch}}" ] ; then
+            echo "has simulator"
+          fi
+
+      # - name: test docker
+      #   run: |
+      #     docker images
+      #     docker run -i \
+      #       --name test-docker \
+      #       ubuntu:22.04 \
+      #       /usr/bin/bash 
+      #     docker start test-docker
+      #     docker ps -a
+      #     docker exec -i test-docker /usr/bin/bash -c "echo hello \
+      #     && echo world \
+      #     && pwd \
+      #     && ls \
+      #     && cd home \
+      #     && pwd \
+      #     && ls"
+      #     docker ps -a
+
+      # - name: test docker exist
+      #   run: |
+      #     docker ps -a
+      #     docker exec -i test-docker /usr/bin/bash -c "echo hello \
+      #     && echo hello \
+      #     && pwd \
+      #     && ls \
+      #     && cd usr \
+      #     && pwd \
+      #     && ls"
+      #     docker ps -a
+      #     docker stop test-docker
+      #     docker rm test-docker
+      #     docker ps -a
 
       # - name: test 2222222
       #   run: |

@@ -41,6 +41,8 @@ jobs:
       - name: test comments
         run: |
           echo ${{github.event.pull_request.body}}
+          touch dependency.txt
+          echo ${{github.event.pull_request.body}} > dependency.txt
 
       # - name: test docker
       #   run: |

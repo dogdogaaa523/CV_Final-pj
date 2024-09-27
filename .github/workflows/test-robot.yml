@@ -41,12 +41,12 @@ jobs:
       - name: test comments
         id: get-dependency
         run: |
-          echo ${{github.event.pull_request.body}}
+          echo "${{github.event.pull_request.body}}"
           echo "${{github.event.pull_request.body}}" >> $GITHUB_OUTPUT
 
       - name: export
         run: |
-          echo ${{steps.get-dependency.outputs}}
+          echo ${{steps.get-dependency.outputs.LLVM_branch}}
 
       # - name: test docker
       #   run: |

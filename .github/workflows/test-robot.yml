@@ -48,6 +48,7 @@ jobs:
         if: ${{github.event.pull_request.body != ''}}
         run: |
           echo ${{steps.get-dependency.outputs.LLVM_branch}}
+          echo ${{steps.get-dependency.outputs.DLCsim_branch}}
 
       # - name: test docker
       #   run: |

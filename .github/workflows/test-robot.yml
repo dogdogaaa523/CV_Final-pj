@@ -54,6 +54,15 @@ jobs:
             echo "has simulator"
           fi
 
+      - name: test timeout
+        timeout-minutes: 1
+        run: |
+          cd ..
+          echo "before sleep"
+          sleep 120
+          echo "after sleep"
+          cd /
+
       # - name: test docker
       #   run: |
       #     docker images

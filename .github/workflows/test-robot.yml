@@ -54,32 +54,43 @@ jobs:
             echo "has simulator"
           fi
 
-      - name: test timeout
-        timeout-minutes: 1
-        run: |
-          cd ..
-          echo "before sleep"
-          sleep 120
-          echo "after sleep"
-          cd /
-
-      # - name: test docker
+      # - name: test timeout
+      #   timeout-minutes: 1
       #   run: |
-      #     docker images
-      #     docker run -i \
-      #       --name test-docker \
-      #       ubuntu:22.04 \
-      #       /usr/bin/bash 
-      #     docker start test-docker
-      #     docker ps -a
-      #     docker exec -i test-docker /usr/bin/bash -c "echo hello \
-      #     && echo world \
-      #     && pwd \
-      #     && ls \
-      #     && cd home \
-      #     && pwd \
-      #     && ls"
-      #     docker ps -a
+      #     cd ..
+      #     echo "before sleep"
+      #     sleep 120
+      #     echo "after sleep"
+      #     cd /
+
+      - name: test docker
+        id: model-test
+        run: |
+          docker images
+          docker run -i \
+            --name test-docker \
+            ubuntu:22.04 \
+            /usr/bin/bash 
+          docker start test-docker
+          docker ps -a
+          result=$(docker exec -i test-docker /usr/bin/bash -c "echo hello \
+          && echo world \
+          && pwd \
+          && ls \
+          && cd home \
+          && pwd \
+          && cd sfsdfsdgs") \
+          || echo "exit_status=$result" >> $GITHUB_OUTPUT
+          if [ $result -ne 0 ] ; then
+            exit 1
+          fi
+          docker ps -a
+
+      - name: test statttsss
+        if: ${{ failure() && steps.model-test.outputs.exit_status == '1' }}
+        run: | 
+          echo "sfasfs"
+          echo " sd s "
 
       # - name: test docker exist
       #   run: |

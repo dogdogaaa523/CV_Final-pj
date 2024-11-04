@@ -66,13 +66,13 @@ jobs:
       - name: test docker
         id: model-test
         run: |
-          docker images
+          # docker images
           docker run -i \
             --name test-docker \
             ubuntu:22.04 \
             /usr/bin/bash 
           docker start test-docker
-          docker ps -a
+          # docker ps -a
           result=$(docker exec -i test-docker /usr/bin/bash -c "echo hello \
           && echo world \
           && pwd \
@@ -80,10 +80,11 @@ jobs:
           && cd home \
           && pwd \
           && cd sfsdfsdgs") || echo "exit_status=$result" >> $GITHUB_OUTPUT
+          echo $result
           if [ $result -ne 0 ]; then
             exit 1
           fi
-          docker ps -a
+          # docker ps -a
 
       - name: test statttsss
         if: ${{ failure() && steps.model-test.outputs.exit_status == '1' }}

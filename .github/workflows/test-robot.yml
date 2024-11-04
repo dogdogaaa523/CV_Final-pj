@@ -79,16 +79,16 @@ jobs:
           && ls \
           && cd home \
           && pwd \
-          && cd sfsdfsdgs" || result=$?
+          && exit 2" || result=$?
           echo $result
           echo "exit_status=$result" >> $GITHUB_OUTPUT
           if [ $result -ne 0 ]; then
-            exit 1
+            exit 2
           fi
           # docker ps -a
 
       - name: test statttsss
-        if: ${{ failure() && steps.model-test.outputs.exit_status == '1' }}
+        if: ${{ failure() && steps.model-test.outputs.exit_status == '2' }}
         run: | 
           echo "sfasfs"
           echo " sd s "

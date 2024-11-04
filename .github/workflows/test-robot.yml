@@ -73,13 +73,13 @@ jobs:
             /usr/bin/bash 
           docker start test-docker
           # docker ps -a
-          result=$(docker exec -i test-docker /usr/bin/bash -c "echo hello \
+          docker exec -i test-docker /usr/bin/bash -c "echo hello \
           && echo world \
           && pwd \
           && ls \
           && cd home \
           && pwd \
-          && cd sfsdfsdgs") || echo "exit_status=$result" >> $GITHUB_OUTPUT
+          && cd sfsdfsdgs" || result=$?
           echo $result
           if [ $result -ne 0 ]; then
             exit 1

@@ -79,8 +79,7 @@ jobs:
           && ls \
           && cd home \
           && pwd \
-          && cd sfsdfsdgs") \
-          || echo "exit_status=$result" >> $GITHUB_OUTPUT
+          && cd sfsdfsdgs") || echo "exit_status=$result" >> $GITHUB_OUTPUT
           if [ $result -ne 0 ] ; then
             exit 1
           fi

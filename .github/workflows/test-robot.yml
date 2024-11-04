@@ -80,7 +80,7 @@ jobs:
           && cd home \
           && pwd \
           && cd sfsdfsdgs") || echo "exit_status=$result" >> $GITHUB_OUTPUT
-          if [ $result -ne 0 ] ; then
+          if [ $result -ne 0 ]; then
             exit 1
           fi
           docker ps -a

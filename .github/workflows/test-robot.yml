@@ -82,7 +82,7 @@ jobs:
           && exit 2" || result=$?
           echo $result
           echo "exit_status=$result" >> $GITHUB_OUTPUT
-          if [ $result -ne 0 ]; then
+          if [ $result -ne 0 ] ; then
             exit 2
           fi
           # docker ps -a

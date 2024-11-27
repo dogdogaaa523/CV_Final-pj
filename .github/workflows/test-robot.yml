@@ -47,11 +47,14 @@ jobs:
 
       - name: export
         if: ${{github.event.pull_request.body != ''}}
+        env:
+          LLVM_CI_BRANCH: ${{steps.get-dependency.outputs.LLVM_BRANCH}}
+          DLC_SIM_CI_BRANCH: ${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}
         run: |
-          if [ "${{steps.get-dependency.outputs.LLVM_BRANCH}}" != "DEFAULT_BRANCH" ]; then
+          if [ $LLVM_CI_BRANCH != "DEFAULT_BRANCH" ]; then
             echo "has llvm"
           fi
-          if [[ ${{steps.get-dependency.outputs.DLC_SIM_BRANCH}} != DEFAULT_BRANCH ]]; then
+          if [[ $DLC_SIM_CI_BRANCH != "DEFAULT_BRANCH" ]]; then
             echo "has simulator"
           fi
 

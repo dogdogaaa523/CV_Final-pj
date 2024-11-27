@@ -51,7 +51,7 @@ jobs:
           if [ "${{steps.get-dependency.outputs.LLVM_BRANCH}}" != "DEFAULT_BRANCH" ]; then
             echo "has llvm"
           fi
-          if [ "${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}" != "DEFAULT_BRANCH" ]; then
+          if [[ ${{steps.get-dependency.outputs.DLC_SIM_BRANCH}} != DEFAULT_BRANCH ]]; then
             echo "has simulator"
           fi
 

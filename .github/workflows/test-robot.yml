@@ -43,6 +43,7 @@ jobs:
         id: get-dependency
         run: |
           echo "${{github.event.pull_request.body}}" >> /tmp/pr.txt
+          cat /tmp/pr.txt | grep "="
           cat /tmp/pr.txt | grep "=" >> $GITHUB_OUTPUT
 
       - name: export

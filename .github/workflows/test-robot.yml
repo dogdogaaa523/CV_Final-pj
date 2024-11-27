@@ -56,10 +56,10 @@ jobs:
           echo $DLC_SIM_CI_BRANCH
           expr length $LLVM_CI_BRANCH
           expr length $DLC_SIM_CI_BRANCH
-          if [[ echo $LLVM_CI_BRANCH | grep -q "DEFAULT_BRANCH" ]]; then
+          if [[ $(echo $LLVM_CI_BRANCH | grep -q "DEFAULT_BRANCH") ]]; then
             echo "has llvm"
           fi
-          if [[ echo $DLC_SIM_CI_BRANCH | grep -q "DEFAULT_BRANCH" ]]; then
+          if [[ $(echo $DLC_SIM_CI_BRANCH | grep -q "DEFAULT_BRANCH") ]]; then
             echo "has simulator"
           fi
 

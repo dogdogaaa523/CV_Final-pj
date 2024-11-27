@@ -37,7 +37,7 @@ jobs:
           echo $bbb
           echo $ccc
           echo $LD_LIBRARY_PATH
-      
+
       - name: test comments
         id: get-dependency
         run: |
@@ -70,7 +70,7 @@ jobs:
           docker run -i \
             --name test-docker \
             ubuntu:22.04 \
-            /usr/bin/bash 
+            /usr/bin/bash
           docker start test-docker
           # docker ps -a
           docker exec -i test-docker /usr/bin/bash -c "echo hello \
@@ -89,7 +89,7 @@ jobs:
 
       - name: test statttsss
         if: ${{ failure() && steps.model-test.outputs.exit_status == '2' }}
-        run: | 
+        run: |
           echo "sfasfs"
           echo " sd s "
 

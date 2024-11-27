@@ -39,18 +39,27 @@ jobs:
           echo $LD_LIBRARY_PATH
 
       - name: test comments
+        if: ${{github.event_name == 'pull_request'}}
         id: get-dependency
         run: |
           echo "${{github.event.pull_request.body}}" >> /tmp/pr.txt
+          cat /tmp/pr.txt | grep "="
           cat /tmp/pr.txt | grep "=" >> $GITHUB_OUTPUT
 
       - name: export
         if: ${{github.event.pull_request.body != ''}}
+        env:
+          LLVM_CI_BRANCH: ${{steps.get-dependency.outputs.LLVM_BRANCH}}
+          DLC_SIM_CI_BRANCH: ${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}
         run: |
-          if [ -n "${{steps.get-dependency.outputs.LLVM_BRANCH}}" ]; then
+          echo $LLVM_CI_BRANCH
+          echo $DLC_SIM_CI_BRANCH
+          expr length $LLVM_CI_BRANCH
+          expr length $DLC_SIM_CI_BRANCH
+          if ! echo $LLVM_CI_BRANCH | grep -q "DEFAULT_BRANCH"; then
             echo "has llvm"
           fi
-          if [ -n "${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}" ] ; then
+          if ! echo $DLC_SIM_CI_BRANCH | grep -q "DEFAULT_BRANCH"; then
             echo "has simulator"
           fi
 

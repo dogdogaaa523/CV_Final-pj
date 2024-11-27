@@ -43,8 +43,6 @@ jobs:
         run: |
           echo "${{github.event.pull_request.body}}" >> /tmp/pr.txt
           cat /tmp/pr.txt | grep "=" >> $GITHUB_OUTPUT
-          # echo "${{github.event.pull_request.body}}" >> $GITHUB_OUTPUT
-
 
       - name: export
         if: ${{github.event.pull_request.body != ''}}
@@ -64,6 +62,7 @@ jobs:
       #     sleep 120
       #     echo "after sleep"
       #     cd /
+      #     echo "${{github.event.pull_request.body}}" >> $GITHUB_OUTPUT
 
       - name: test docker
         id: model-test

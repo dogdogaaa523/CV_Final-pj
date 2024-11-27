@@ -39,6 +39,7 @@ jobs:
           echo $LD_LIBRARY_PATH
 
       - name: test comments
+        if: ${{github.event_name == 'pull_request'}}
         id: get-dependency
         run: |
           echo "${{github.event.pull_request.body}}" >> /tmp/pr.txt
@@ -47,10 +48,10 @@ jobs:
       - name: export
         if: ${{github.event.pull_request.body != ''}}
         run: |
-          if [ -n "${{steps.get-dependency.outputs.LLVM_BRANCH}}" ]; then
+          if [ "${{steps.get-dependency.outputs.LLVM_BRANCH}}" != "" ]; then
             echo "has llvm"
           fi
-          if [ -n "${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}" ] ; then
+          if [ "${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}" != "" ] ; then
             echo "has simulator"
           fi
 

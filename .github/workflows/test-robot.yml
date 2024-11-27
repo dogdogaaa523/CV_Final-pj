@@ -48,10 +48,10 @@ jobs:
       - name: export
         if: ${{github.event.pull_request.body != ''}}
         run: |
-          if [ "${{steps.get-dependency.outputs.LLVM_BRANCH}}" != "" ]; then
+          if [ "${{steps.get-dependency.outputs.LLVM_BRANCH}}" != "DEFAULT_BRANCH" ]; then
             echo "has llvm"
           fi
-          if [ "${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}" != "" ] ; then
+          if [ "${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}" != "DEFAULT_BRANCH" ] ; then
             echo "has simulator"
           fi
 

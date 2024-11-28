@@ -38,6 +38,22 @@ jobs:
           echo $ccc
           echo $LD_LIBRARY_PATH
 
+      - name: test 222222
+        run: |
+          echo ${{github.event.pull_request.head.ref}}
+          echo ${{github.event.pull_request.base.ref}}
+          if git branch -r | grep -q ${{github.event.pull_request.head.ref}}; then
+            git checkout main
+            git status
+            git fetch
+            git checkout ${{github.event.pull_request.head.ref}}
+            git status
+            echo "has branch"
+          fi
+          # if git branch -r | grep -q ${{github.event.pull_request.base.ref}}; then
+          #   echo "has base branch"
+          # fi
+
       - name: test comments
         if: ${{github.event_name == 'pull_request'}}
         id: get-dependency

@@ -42,10 +42,6 @@ jobs:
         run: |
           echo ${{github.event.pull_request.head.ref}}
           echo ${{github.event.pull_request.base.ref}}
-          echo ${{github.event.pull_request.created_at}}
-          echo ${{github.event.pull_request.updated_at}}
-          echo ${{github.event.pull_request.closed_at}}
-          echo ${{github.event.pull_request.merged_at}}
 
       - name: test comments
         if: ${{github.event_name == 'pull_request'}}

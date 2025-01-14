@@ -42,6 +42,7 @@ jobs:
         run: |
           echo ${{github.event.pull_request.head.ref}}
           echo ${{github.event.pull_request.base.ref}}
+          echo ${{github.event.pull_request.diff_url}}
           git fetch
           git branch -r
           git branch -r | grep ${{github.event.pull_request.head.ref}}

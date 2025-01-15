@@ -71,6 +71,7 @@ jobs:
         env:
           LLVM_CI_BRANCH: ${{steps.get-dependency.outputs.LLVM_BRANCH}}
           DLC_SIM_CI_BRANCH: ${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}
+          CAN_SKIP_CI: ${{steps.get-dependency.outputs.CAN_SKIP_CI}}
         run: |
           echo $LLVM_CI_BRANCH
           echo $DLC_SIM_CI_BRANCH
@@ -82,6 +83,13 @@ jobs:
           if ! echo $DLC_SIM_CI_BRANCH | grep -q "DEFAULT_BRANCH"; then
             echo "has simulator"
           fi
+          if echo $CAN_SKIP_CI | grep -q "true"; then
+            echo "can skip ci"
+          fi
+          if echo $CAN_SKIP_CI | grep -q "false"; then
+            echo "can not skip ci"
+          fi
+
 
       # - name: test timeout
       #   timeout-minutes: 1

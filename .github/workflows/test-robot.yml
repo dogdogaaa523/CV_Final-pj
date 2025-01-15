@@ -67,12 +67,14 @@ jobs:
           cat /tmp/pr.txt | grep "=" >> $GITHUB_OUTPUT
 
       - name: export
+        id: export
         if: ${{github.event.pull_request.body != ''}}
         env:
           LLVM_CI_BRANCH: ${{steps.get-dependency.outputs.LLVM_BRANCH}}
           DLC_SIM_CI_BRANCH: ${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}
           CAN_SKIP_CI: ${{steps.get-dependency.outputs.CAN_SKIP_CI}}
         run: |
+          echo ${{runner.name}}
           echo $LLVM_CI_BRANCH
           echo $DLC_SIM_CI_BRANCH
           expr length $LLVM_CI_BRANCH
@@ -85,11 +87,20 @@ jobs:
           fi
           if echo $CAN_SKIP_CI | grep -q "true"; then
             echo "can skip ci"
+            echo "SKIP_CI=true" >> $GITHUB_OUTPUT
           fi
           if echo $CAN_SKIP_CI | grep -q "false"; then
             echo "can not skip ci"
+            echo "SKIP_CI=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: build DLC_CL for 1111
+        if: ${{ github.event_name == 'pull_request' && steps.export.outputs.SKIP_CI == 'true'}}
+        run: echo "skip ci"
+      
+      - name: build DLC_CL for pus222222h
+        if: ${{ github.event_name == 'pull_request' && steps.export.outputs.SKIP_CI == 'false'}}
+        run: echo "not skip ci"
 
       # - name: test timeout
       #   timeout-minutes: 1

@@ -38,6 +38,11 @@ jobs:
           echo $ccc
           echo $LD_LIBRARY_PATH
 
+      - name: test 222222
+        run: |
+          echo ${{github.event.pull_request.head.ref}}
+          echo ${{github.event.pull_request.base.ref}}
+
       - name: test comments
         if: ${{github.event_name == 'pull_request'}}
         id: get-dependency

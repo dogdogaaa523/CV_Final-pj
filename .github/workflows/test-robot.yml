@@ -12,6 +12,10 @@ on:
   # schedule:
   #   - cron: "30 18 * * *"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   aaa: llvm
   bbb: sim
@@ -42,6 +46,8 @@ jobs:
           echo ${{github.event.pull_request.head.ref}}
           echo ${{github.event.pull_request.base.ref}}
           echo ${{github.event.pull_request.diff_url}}
+          echo ${{ github.workflow }}
+          echo ${{ github.ref }}
           git fetch
           git branch -r
           git branch -r | grep ${{github.event.pull_request.head.ref}}

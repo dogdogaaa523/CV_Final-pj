@@ -59,7 +59,7 @@ jobs:
             git status
             echo "has branch"
           fi
-          sleep 3600
+          sleep 1800
           # if git branch -r | grep -q ${{github.event.pull_request.base.ref}}; then
           #   echo "has base branch"
           # fi

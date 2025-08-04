@@ -35,6 +35,8 @@ jobs:
       - name: test 111111
         run: |
           echo $LD_LIBRARY_PATH
+          DATE_SUFFIX=$(date -d '+1 day' +%Y%m%d)
+          echo $DATE_SUFFIX
           export LD_LIBRARY_PATH=/usr/local/chipltech/simulator/lib:/usr/local/chipltech/thunk/lib/:/usr/local/chipltech/synapse/lib/:$LD_LIBRARY_PATH
           echo $aaa
           echo $bbb

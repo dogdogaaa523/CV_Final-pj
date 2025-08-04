@@ -130,17 +130,17 @@ jobs:
             /usr/bin/bash
           docker start test-docker
           # docker ps -a
-          docker exec -i test-docker /usr/bin/bash -c "echo hello \
-          && export DATE_SUFFIX=$(date -d '+1 day' +%Y%m%d) \
+          docker exec -i test-docker /usr/bin/bash -c 'echo hello \
+          && DATE_SUFFIX=$(date -d "+1 day" +%Y%m%d) \
           && echo $DATE_SUFFIX \
-          && export BRANCH_NAME=develop_$DATE_SUFFIX \
+          && BRANCH_NAME=develop_$DATE_SUFFIX \
           && echo $BRANCH_NAME \
           && echo world \
           && pwd \
           && ls \
           && cd home \
           && pwd \
-          && exit 2" || result=$?
+          && exit 2' || result=$?
           echo $result
           echo "exit_status=$result" >> $GITHUB_OUTPUT
           # if [ $result -ne 0 ] ; then

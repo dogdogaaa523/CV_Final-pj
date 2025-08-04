@@ -12,11 +12,14 @@ on:
   # schedule:
   #   - cron: "30 18 * * *"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   aaa: llvm
   bbb: sim
   ccc: aaa:aaa:aaa:$ccc
-
 
 jobs:
   robot:
@@ -34,11 +37,36 @@ jobs:
           DATE_SUFFIX=$(date -d '+1 day' +%Y%m%d)
           echo $DATE_SUFFIX
           echo $LD_LIBRARY_PATH
+          DATE_SUFFIX=$(date -d '+1 day' +%Y%m%d)
+          echo $DATE_SUFFIX
           export LD_LIBRARY_PATH=/usr/local/chipltech/simulator/lib:/usr/local/chipltech/thunk/lib/:/usr/local/chipltech/synapse/lib/:$LD_LIBRARY_PATH
           echo $aaa
           echo $bbb
           echo $ccc
           echo $LD_LIBRARY_PATH
+
+      - name: test 222222
+        run: |
+          echo ${{github.event.pull_request.head.ref}}
+          echo ${{github.event.pull_request.base.ref}}
+          echo ${{github.event.pull_request.diff_url}}
+          echo ${{ github.workflow }}
+          echo ${{ github.ref }}
+          git fetch
+          git branch -r
+          git branch -r | grep ${{github.event.pull_request.head.ref}}
+          if git branch -r | grep -q ${{github.event.pull_request.head.ref}}; then
+            git checkout main
+            git status
+            git fetch
+            git checkout ${{github.event.pull_request.head.ref}}
+            git status
+            echo "has branch"
+          fi
+          # sleep 3600
+          # if git branch -r | grep -q ${{github.event.pull_request.base.ref}}; then
+          #   echo "has base branch"
+          # fi
 
       - name: test comments
         if: ${{github.event_name == 'pull_request'}}
@@ -49,11 +77,14 @@ jobs:
           cat /tmp/pr.txt | grep "=" >> $GITHUB_OUTPUT
 
       - name: export
+        id: export
         if: ${{github.event.pull_request.body != ''}}
         env:
           LLVM_CI_BRANCH: ${{steps.get-dependency.outputs.LLVM_BRANCH}}
           DLC_SIM_CI_BRANCH: ${{steps.get-dependency.outputs.DLC_SIM_BRANCH}}
+          CAN_SKIP_CI: ${{steps.get-dependency.outputs.CAN_SKIP_CI}}
         run: |
+          echo ${{runner.name}}
           echo $LLVM_CI_BRANCH
           echo $DLC_SIM_CI_BRANCH
           expr length $LLVM_CI_BRANCH
@@ -64,6 +95,22 @@ jobs:
           if ! echo $DLC_SIM_CI_BRANCH | grep -q "DEFAULT_BRANCH"; then
             echo "has simulator"
           fi
+          if echo $CAN_SKIP_CI | grep -q "true"; then
+            echo "can skip ci"
+            echo "SKIP_CI=true" >> $GITHUB_OUTPUT
+          fi
+          if echo $CAN_SKIP_CI | grep -q "false"; then
+            echo "can not skip ci"
+            echo "SKIP_CI=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: build DLC_CL for 1111
+        if: ${{ github.event_name == 'pull_request' && steps.export.outputs.SKIP_CI == 'true'}}
+        run: echo "skip ci"
+      
+      - name: build DLC_CL for pus222222h
+        if: ${{ github.event_name == 'pull_request' && steps.export.outputs.SKIP_CI == 'false'}}
+        run: echo "not skip ci"
 
       # - name: test timeout
       #   timeout-minutes: 1
@@ -85,13 +132,16 @@ jobs:
             /usr/bin/bash
           docker start test-docker
           # docker ps -a
-          docker exec -i test-docker /usr/bin/bash -c "echo hello \
+          docker exec -i test-docker /usr/bin/bash -c 'DATE_SUFFIX=$(date -d "+1 day" +%Y%m%d) \
+          && echo $DATE_SUFFIX \
+          && BRANCH_NAME=develop_$DATE_SUFFIX \
+          && echo $BRANCH_NAME \
           && echo world \
           && pwd \
           && ls \
           && cd home \
           && pwd \
-          && exit 2" || result=$?
+          && exit 2' || result=$?
           echo $result
           echo "exit_status=$result" >> $GITHUB_OUTPUT
           # if [ $result -ne 0 ] ; then

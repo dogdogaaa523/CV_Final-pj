@@ -61,7 +61,7 @@ jobs:
             git status
             echo "has branch"
           fi
-          sleep 3600
+          # sleep 3600
           # if git branch -r | grep -q ${{github.event.pull_request.base.ref}}; then
           #   echo "has base branch"
           # fi
@@ -131,6 +131,9 @@ jobs:
           docker start test-docker
           # docker ps -a
           docker exec -i test-docker /usr/bin/bash -c "echo hello \
+          && DATE_SUFFIX=$(date -d '+1 day' +%Y%m%d) \
+          && echo ${DATE_SUFFIX} \
+          && BRANCH_NAME=develop_${DATE_SUFFIX} \
           && echo world \
           && pwd \
           && ls \

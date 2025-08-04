@@ -130,8 +130,7 @@ jobs:
             /usr/bin/bash
           docker start test-docker
           # docker ps -a
-          docker exec -i test-docker /usr/bin/bash -c 'echo hello \
-          && DATE_SUFFIX=$(date -d "+1 day" +%Y%m%d) \
+          docker exec -i test-docker /usr/bin/bash -c 'DATE_SUFFIX=$(date -d "+1 day" +%Y%m%d) \
           && echo $DATE_SUFFIX \
           && BRANCH_NAME=develop_$DATE_SUFFIX \
           && echo $BRANCH_NAME \

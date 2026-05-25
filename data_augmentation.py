@@ -32,13 +32,17 @@ class Cutout(object):
             x = np.random.randint(w)
 
             y1 = np.clip(y - self.length // 2, 0, h)  # 截取函数
-            y2 = np.clip(y + self.length // 2, 0, h)  # 用于截取数组中小于或者大于某值的部分，
+            y2 = np.clip(
+                y + self.length // 2, 0, h
+            )  # 用于截取数组中小于或者大于某值的部分，
             x1 = np.clip(x - self.length // 2, 0, w)  # 并使得被截取的部分等于固定的值
             x2 = np.clip(x + self.length // 2, 0, w)
 
             mask[y1:y2, x1:x2] = 0.0
 
-        mask = torch.from_numpy(mask)  # 数组转换成张量，且二者共享内存，对张量进行修改比如重新赋值，那么原始数组也会相应发生改变
+        mask = torch.from_numpy(
+            mask
+        )  # 数组转换成张量，且二者共享内存，对张量进行修改比如重新赋值，那么原始数组也会相应发生改变
         mask = mask.expand_as(img)  # 把一个tensor变成和函数括号内一样形状的tensor
         img = img * mask
 

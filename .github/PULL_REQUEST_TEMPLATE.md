@@ -38,6 +38,6 @@ PYTORCH_BRANCH=DEFAULT_BRANCH
 
 VLLM_BRANCH=DEFAULT_BRANCH
 
-### after you have changed the DEFAULT_BRANCH to YOUR_BRANCH_NAME, please *DELETE* the example above this line :point_up_2:	
+### after you have changed the DEFAULT_BRANCH to YOUR_BRANCH_NAME, please *DELETE* the example above this line :point_up_2:
 
 ### if your pull request do not depend on any others, you needn't change anything
